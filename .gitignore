@@ -1,0 +1,7 @@
+.venv
+__pycache__
+data_DE
+luuTru
+qdrant_storage
+logs
+dags/__pycache__
