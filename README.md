@@ -16,7 +16,7 @@ This project automatically embeds images into vectors and pushes them to Qdrant 
   ├── docker-compose.yml
   ├── Dockerfile
   └── requirements.txt
-
+```
 
 ## Dataset
 The project uses the GSV-Cities dataset, which can be downloaded from Kaggle. https://www.kaggle.com/datasets/amaralibey/gsv-cities 
@@ -37,7 +37,9 @@ The project uses the GSV-Cities dataset, which can be downloaded from Kaggle. ht
 6. Build and start the Docker containers:
 
 
-  `docker-compose up -d`
+  ```
+  docker-compose up -d
+```
 
 ## Usage
 1. Once the containers are up and running, access the Airflow webserver at http://localhost:8080.
