@@ -2,19 +2,21 @@
 This project automatically embeds images into vectors and pushes them to Qdrant using Apache Airflow. It also implements similarity search functionality.
 
 ## Project Structure
-.
-├── dags/
-├── scripts/
-├── data_DE/
-│   ├── Images/
-│   │   ├── WashingtonDC/
-│   │   └── Rome/
-│   └── DataFrames/
-│       ├── WashingtonDC.csv
-│       └── Rome.csv
-├── docker-compose.yml
-├── Dockerfile
-└── requirements.txt
+  ```bash
+  .
+  ├── dags/
+  ├── scripts/
+  ├── data_DE/
+  │   ├── Images/
+  │   │   ├── WashingtonDC/
+  │   │   └── Rome/
+  │   └── DataFrames/
+  │       ├── WashingtonDC.csv
+  │       └── Rome.csv
+  ├── docker-compose.yml
+  ├── Dockerfile
+  └── requirements.txt
+
 
 ## Dataset
 The project uses the GSV-Cities dataset, which can be downloaded from Kaggle. https://www.kaggle.com/datasets/amaralibey/gsv-cities 
