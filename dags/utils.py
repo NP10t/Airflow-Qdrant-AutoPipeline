@@ -23,33 +23,6 @@ def getCSVFile(city_name):
 def getImagesDir(city_name):
     return os.path.join(getImagesPath(), city_name)
 
-def load_cities_data_to_qdrant():
-    model = init_model()
-    city_names = ['Phoenix', 'WashingtonDC']
-    
-    # qdrant_client = QdrantClient("http://exciting_cori:6333")
-    
-    qdrant_client = QdrantClient("http://qdrant:6333")
-    
-    # qdrant_client = QdrantClient(host="exciting_cori", port=6333)
-    
-    # qdrant_client = QdrantClient("http://172.17.0.1:6333")
-    
-    # qdrant_host = os.getenv('QDRANT_HOST', 'host.docker.internal')
-    # qdrant_client = QdrantClient(f"http://{qdrant_host}:6333")
-    
-    collection_name = 'xem_thu_co_hoat_dong_khong_2'
-    
-    define_qdrant_collection(qdrant_client, collection_name, model.config.hidden_size)
-    
-    for city_name in city_names:
-        city_df = pd.read_csv(getCSVFile(city_name))
-        city_df = city_df.set_index('place_id')
-        for _, row in city_df.head(5).iterrows(): # chọn 5 thôi cho nó nhẹ
-            embedding, metadata = embed_and_metadata(row, model, getImagesDir(city_name))
-            store_embedding_in_qdrant(embedding, metadata, collection_name, qdrant_client)
-
-
 def init_model():
     model_ckpt = "nateraw/vit-base-beans"
     model = AutoModel.from_pretrained(model_ckpt)

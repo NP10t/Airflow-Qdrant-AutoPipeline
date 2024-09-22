@@ -1,6 +1,5 @@
 from utils import *
 
-
 model = init_model()
 
 qdrant_client = QdrantClient("http://localhost:6333")

@@ -14,28 +14,8 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
-
-def hehe(city_name, **kwargs):
-    model = init_model()
-    qdrant_client = QdrantClient("http://qdrant:6333")
-    collection_name = city_name + "_buoc_1"
-    define_qdrant_collection(qdrant_client, collection_name, model.config.hidden_size)
-    
-def haha(city_name, **kwargs):
-    model = init_model()
-    qdrant_client = QdrantClient("http://qdrant:6333")
-    collection_name = city_name + "_buoc_2"
-    define_qdrant_collection(qdrant_client, collection_name, model.config.hidden_size)
-    
-def huhu(city_name, **kwargs):
-    model = init_model()
-    qdrant_client = QdrantClient("http://qdrant:6333")
-    collection_name = city_name + "_haha"
-    define_qdrant_collection(qdrant_client, collection_name, model.config.hidden_size)
-    
     
 def load_city_data_to_qdrant(city_name, **kwargs):
-    haha(city_name)
     
     model = init_model()
     
@@ -83,7 +63,6 @@ with DAG('Auto_Load_Data_to_Qdrant',
         ti = kwargs['ti']
         city_name = ti.xcom_pull(task_ids='detect_new_city', key='new_city')
         if city_name:
-            hehe(city_name)
             load_city_data_to_qdrant(city_name, **kwargs)
 
     process_city_task = PythonOperator(

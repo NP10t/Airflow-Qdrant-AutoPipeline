@@ -1,6 +1,6 @@
 from utils import *
 
-ROOT_PATH = "./data_DE/"
+# Lấy ra 1 ảnh của thành phố Phoenix để similarity search xem thử các ảnh giống với nó là thành phố nào
 city_name = 'Phoenix'
 
 model = init_model()
@@ -14,7 +14,7 @@ city_df = city_df.set_index('place_id')
 
 place_id, image_1_info = next(iter(city_df.iterrows()))
 
-embedding, metadata = embed_and_metadata(image_1_info, model, getImagesDir(city_name))')
+embedding, metadata = embed_and_metadata(image_1_info, model, getImagesDir(city_name))
 
 similar_images = query_similar_images(qdrant_client, 'Cities', embedding)
 
