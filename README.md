@@ -40,12 +40,28 @@ The project uses the GSV-Cities dataset, which can be downloaded from Kaggle. ht
   ```
   docker-compose up -d
 ```
+7. Create a collection by running:
+```
+python dags/createCollection.py
+```
+
 
 ## Usage
 1. Once the containers are up and running, access the Airflow webserver at http://localhost:8080.
-2. Enable the DAGs for this project in the Airflow UI.
+2. Enable and start the DAGs for this project in the Airflow UI.
 3. The DAGs will automatically process the images, embed them into vectors, and push them to Qdrant.
-4. Use the provided scripts to perform similarity searches on the embedded images.
+4. Open http://localhost:6333/dashboard to check if the data is loaded correctly.
+5. Use the provided scripts to perform similarity searches on the embedded images:
+   ```
+   python dags/query.py
+   ```
+  ## Notes
+
+- After starting Airflow, the `city_name.csv` files in `data_DE/DataFrames` are renamed to `city_name_deleted.csv`.
+- To restore the original CSV files, run:
+```
+python dags/restoreFile.py
+```
 
 ## Dependencies
 All project dependencies are listed in the requirements.txt file. These will be installed in the Docker container during the build process.
