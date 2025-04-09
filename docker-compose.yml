@@ -2,15 +2,15 @@ services:
   postgres:
     image: postgres:14.0
     environment:
-      - POSTGRES_USER=airflow
-      - POSTGRES_PASSWORD=airflow
-      - POSTGRES_DB=airflow
+    - POSTGRES_USER=${POSTGRES_USER}
+    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    - POSTGRES_DB=${POSTGRES_DB}
     logging:
       options:
         max-size: 10m
         max-file: "3"
     networks:
-      - confluent
+      - dataflow-net
   webserver:
     # network_mode: "host" # docker dung chung mang voi host
     build: 
@@ -23,8 +23,8 @@ services:
     environment:
       - LOAD_EX=n
       - EXECUTOR=Sequential
-      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-      - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=${AIRFLOW__DATABASE__SQL_ALCHEMY_CONN}
+      - AIRFLOW_WEBSERVER_SECRET_KEY=${AIRFLOW_WEBSERVER_SECRET_KEY}
       - QDRANT_HOST=host.docker.internal
     logging:
       options:
@@ -41,7 +41,7 @@ services:
       - ./dags:/opt/airflow/dags
       - ./data_DE:/opt/airflow/data_DE
     networks:
-      - confluent
+      - dataflow-net
 
   scheduler:
     # network_mode: "host"
@@ -60,11 +60,11 @@ services:
       - LOAD_EX=n
       - EXECUTOR=Sequential
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-      - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
+      - AIRFLOW_WEBSERVER_SECRET_KEY=${AIRFLOW_WEBSERVER_SECRET_KEY}
       - QDRANT_HOST=host.docker.internal
     command: bash -c "airflow db upgrade && airflow scheduler"
     networks:
-      - confluent
+      - dataflow-net
 
   qdrant:
     image: qdrant/qdrant
@@ -73,7 +73,7 @@ services:
     volumes:
       - ./qdrant_storage:/qdrant/storage
     networks:
-      - confluent
+      - dataflow-net
 networks:
-  confluent:
-    name: confluent
+  dataflow-net:
+    name: dataflow-net

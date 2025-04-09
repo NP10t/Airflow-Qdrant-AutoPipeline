@@ -5,3 +5,5 @@ luuTru
 qdrant_storage
 logs
 dags/__pycache__
+
+.env
